@@ -1,11 +1,71 @@
 ---
-title: "R Notebook"
+title: "MA350 Final Project"
 authors: Emily Tumbaco, Lorena Mancino, Rob Golebieski
 output: html_notebook
 ---
 
+# Are Mass Shooting Really That Random? 
+
+
 ```{r}
-shootings.dataset<-read.csv("Massshootingsdata.csv")
-shootings.dataset
+shootings.dataset<-read.csv("data.csv") #importing the dataset 
 ```
+
+
+```{r}
+# install.packages('dplyr') this package contains the mutate function which we used below 
+
+library(dplyr)
+
+shootings.dataset <- mutate(shootings.dataset, date= as.Date(date, format = "%m/%d/%Y"))
+shootings.dataset$date # converting the dates in the data set to actual dates in R
+```
+
+
+### Mass Shootings Before 9/11/2001 
+
+```{r}
+a <- shootings.dataset[86:118, 3]
+
+b <- shootings.dataset[86:118, 5]
+
+plot(a, b)
+```
+This is a graph of all of the mass shootings that occured before 9/11/2001. The x axis contains the dates, and the y axis contains the number of fatalities from each shooting. 
+
+
+### Mass Shootings After 9/11/2001 
+
+```{r}
+x <- shootings.dataset[1:85, 3]
+
+y <- shootings.dataset[1:85, 5]
+
+plot(x, y)
+```
+This is a graph of all of the mass shootings that occured after 9/11/2001. The x axis contains the dates, and the y axis contains the number of fatalities from each shooting. 
+
+
+```{r}
+# plot both graphs here
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
