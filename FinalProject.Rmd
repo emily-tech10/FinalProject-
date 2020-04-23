@@ -4,3 +4,8 @@ authors: Emily Tumbaco, Lorena Mancino, Rob Golebieski
 output: html_notebook
 ---
 
+```{r}
+shootings.dataset<-read.csv("Massshootingsdata.csv")
+shootings.dataset
+```
+
