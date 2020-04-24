@@ -29,7 +29,7 @@ a <- shootings.dataset[86:118, 3]
 
 b <- shootings.dataset[86:118, 5]
 
-plot(a, b)
+plot(a, b, main = "Mass Shootings Before 9/11/2001",xlab = "Year", ylab = "Fatalities")
 ```
 This is a graph of all of the mass shootings that occured before 9/11/2001. The x axis contains the dates, and the y axis contains the number of fatalities from each shooting. 
 
@@ -41,7 +41,7 @@ x <- shootings.dataset[1:85, 3]
 
 y <- shootings.dataset[1:85, 5]
 
-plot(x, y)
+plot(x, y,main = "Mass Shootings After 9/11/2001", xlab = "Year", ylab = "Fatalities")
 ```
 This is a graph of all of the mass shootings that occured after 9/11/2001. The x axis contains the dates, and the y axis contains the number of fatalities from each shooting. 
 
