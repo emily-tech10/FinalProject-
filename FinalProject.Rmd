@@ -11,7 +11,7 @@ shootings.dataset
 
 ```{r}
 plot(shootings.dataset,shootings.dataset$total_victims)
-
+mmm
 
 ```
 
