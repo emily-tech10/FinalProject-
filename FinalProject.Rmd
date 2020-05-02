@@ -6,6 +6,7 @@ output: html_notebook
 
 # Are Mass Shooting Really That Random? 
 
+## Problem 1 
 
 ```{r}
 shootings.dataset<-read.csv("data.csv") #importing the dataset 
@@ -13,7 +14,7 @@ shootings.dataset<-read.csv("data.csv") #importing the dataset
 
 
 ```{r}
-# install.packages('dplyr') this package contains the mutate function which we used below 
+# install.packages('dplyr') # this package contains the mutate function which we used below 
 
 library(dplyr)
 
@@ -47,17 +48,57 @@ plot(x, y,main = "Mass Shootings After 9/11/2001", xlab = "Year", ylab = "Fatali
 This is a graph of all of the mass shootings that occured after 9/11/2001. The x axis contains the dates, and the y axis contains the number of fatalities from each shooting. 
 
 
+<<<<<<< HEAD
+=======
+```{r}
+par(mfrow=c(2,2))
+plot(a, b, main = "Mass Shootings Before 9/11/2001",xlab = "Year", ylab = "Fatalities")
+plot(x, y,main = "Mass Shootings After 9/11/2001", xlab = "Year", ylab = "Fatalities")
+```
 
 
+## Problem 4 
+
+### Raster Plot - 2019 
+
+```{r}
+from.date <- as.Date('2019-01-01', format = "%Y-%m-%d")
+to.date <- as.Date('2019-12-31', format = "%Y-%m-%d")
+
+plot(NA, xlim=c(from.date, to.date), ylim=c(0,10), xlab="Day of Year", ylab="y")
+
+segments(shootings.dataset$date, 0, y1=10)
+```
+>>>>>>> e5943566c0c074e2495950e81c2312d2dbd6576f
 
 
+### Raster Plot - 1999 
+
+```{r}
+from.date.1 <- as.Date('1999-01-01', format = "%Y-%m-%d")
+to.date.1 <- as.Date('1999-12-31', format = "%Y-%m-%d")
+
+plot(NA, xlim=c(from.date.1, to.date.1), ylim=c(0,10), xlab="Day of Year", ylab="y")
+
+segments(shootings.dataset$date, 0, y1=10)
+```
 
 
+### Raster Plot - 2018
+
+```{r}
+from.date.2 <- as.Date('2018-01-01', format = "%Y-%m-%d")
+to.date.2 <- as.Date('2018-12-31', format = "%Y-%m-%d")
+
+plot(NA, xlim=c(from.date.2, to.date.2), ylim=c(0,10), xlab="Day of Year", ylab="y")
+
+segments(shootings.dataset$date, 0, y1=10)
+```
+
+From looking at the raster plots, the mass shootings seem to occur in clusters. Every 3 months, there are approximately 3 shootings clustered together. The highest frequency of shootings occurs in the Fall months, and the lowest frequency occurs in the Summer. 
 
 
-
-
-
+## Problem 5
 
 
 
