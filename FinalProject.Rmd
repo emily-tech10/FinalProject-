@@ -100,9 +100,21 @@ From looking at the raster plots, the mass shootings seem to occur in clusters. 
 
 ## Problem 5
 
+```{r}
+tau.2019 <- as.numeric(-diff(shootings.dataset$date[2:11]))
+
+tau.sd<- sd(tau.2019)
+tau.mean <- mean(tau.2019)
+
+coef.variation <- tau.sd/tau.mean
+coef.variation
+```
 
 
+```{r}
+rbinom(365, 1, (10/365))
 
+```
 
 
 
