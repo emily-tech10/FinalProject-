@@ -1,10 +1,8 @@
 ---
-title: "MA350 Final Project"
+title: "Are Mass Shooting Really That Random?"
 authors: Emily Tumbaco, Lorena Mancino, Rob Golebieski
 output: html_notebook
 ---
-
-# Are Mass Shooting Really That Random? 
 
 ## Problem 1 
 
@@ -107,7 +105,7 @@ coef.variation <- tau.sd/tau.mean # Calculating the coefficient of variation for
 coef.variation-1
 ```
 
-### Bootstrap Function 
+### 2019 Bootstrap Function 
 
 ```{r}
 bootstrap.coef.var <- function(days, shootings){
@@ -142,6 +140,8 @@ abline(v=coef.variation-1)
 abline(v=-coef.variation+1)
 ```
 
+
+make a function with how we calculated this p value 
 ```{r}
 right.tail <- bootstrap.rep-1 >= coef.variation-1 # true=values to the right of the hist 
 ```
@@ -163,7 +163,7 @@ right.tail | left.tail # TRUE where they're in the right tail OR left tail
 If you were using a 5% significance level, you would fail to reject the null  
 
 
-
+p-value is the prop that are as extreme or more extreme 
 
 
 
