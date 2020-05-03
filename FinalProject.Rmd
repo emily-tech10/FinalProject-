@@ -90,19 +90,19 @@ segments(shootings.dataset$date, 0, y1=10)
 
 From looking at the raster plots, the mass shootings seem to occur in clusters. Every 3 months, there are approximately 3 shootings clustered together. The highest frequency of shootings occurs in the Fall months, and the lowest frequency occurs in the Summer. 
 
-## Problem 6
+# 2019 Bootstrap 
 
 ### Calculating One Coefficient of Variation For The Year 2019
 
 ```{r}
-tau.2019 <- as.numeric(-diff(shootings.dataset$date[2:11])) #Calculating the time between two successive mass shootings in the year 2019
+tau.19 <- as.numeric(-diff(shootings.dataset$date[2:11])) #Calculating the time between two successive mass shootings in the year 2019
 
-tau.sd<- sd(tau.2019) 
-tau.mean <- mean(tau.2019)
+tau.sd.19 <- sd(tau.19) 
+tau.mean.19 <- mean(tau.19)
 
-coef.variation <- tau.sd/tau.mean # Calculating the coefficient of variation for 2019
+coef.variation.19 <- tau.sd.19/tau.mean.19 # Calculating the coefficient of variation for 2019
 
-coef.variation-1
+coef.variation.19-1
 ```
 
 ### 2019 Bootstrap Function 
@@ -124,45 +124,86 @@ bootstrap.coef.var <- function(days, shootings){
   }
 }
 
-bootstrap.rep <- replicate(10000, bootstrap.coef.var(365, 10))
+bootstrap.rep.19 <- replicate(10000, bootstrap.coef.var(365, 10))
 
-hist(bootstrap.rep, breaks="FD")
-abline(v=coef.variation)
-abline(v=2-coef.variation)
+hist(bootstrap.rep.19-1, breaks="FD")
+abline(v=coef.variation.19-1)
+abline(v=-coef.variation.19+1)
 ```
 
 
-### Centered at 0 
-
-```{r}
-hist(bootstrap.rep-1, breaks="FD")
-abline(v=coef.variation-1)
-abline(v=-coef.variation+1)
-```
-
-### Function for the p-value 
+### Function for the p-value 2019 
 ```{r}
 
-bootstrap.pval<-function(days,shootings,FUN){
-  
-  right.tail <- bootstrap.rep-1 >= coef.variation-1 # true=values to the right of the hist 
-  left.tail <- bootstrap.rep-1 <= -coef.variation+1 # true=values to the left of the hist 
-  right.tail | left.tail # TRUE where they're in the right tail OR left tail
-  
-  pval<-(sum(right.tail | left.tail, na.rm=TRUE))/sum(!is.na(bootstrap.rep)) #p value 
-  
-  return(pval)
-  
+right.tail.19 <- bootstrap.rep.19-1 >= coef.variation.19-1 # true=values to the right of the hist
 
-}
-
-bootstrap.pval(FUN=bootstrap.coef.var(365,18))
+left.tail.19 <- bootstrap.rep.19-1 <= -coef.variation.19+1 # true=values to the left of the hist
+  
+right.tail.19 | left.tail.19 # TRUE where they're in the right tail OR left tail
+  
+(sum(right.tail.19 | left.tail.19, na.rm=TRUE))/sum(!is.na(bootstrap.rep.19)) #p value 
 ```
 
 If you were using a 5% significance level, you would fail to reject the null  
 
 
 p-value is the prop that are as extreme or more extreme 
+
+
+
+
+
+
+
+
+### Calculating One Coefficient of Variation For The Year 2015
+
+```{r}
+tau.2015 <- as.numeric(-diff(shootings.dataset$date[41:47])) #Calculating the time between two successive mass shootings in the year 2015
+
+tau.sd.15 <- sd(tau.2015) 
+tau.mean.15 <- mean(tau.2015)
+
+coef.variation.15 <- tau.sd.15/tau.mean.15 # Calculating the coefficient of variation for 2015
+
+coef.variation.15-1
+```
+
+### 2015 Bootstrap Function 
+
+```{r}
+bootstrap.rep.15 <- replicate(10000, bootstrap.coef.var(365, 7))
+
+hist(bootstrap.rep.15-1, breaks="FD")
+abline(v=coef.variation.15-1)
+abline(v=-coef.variation.15+1)
+```
+
+
+
+### P-value for 2015 
+```{r}
+right.tail.15 <- bootstrap.rep.15-1 >= coef.variation.15-1 # true=values to the right of the hist
+
+left.tail.15 <- bootstrap.rep.15-1 <= -coef.variation.15+1 # true=values to the left of the hist
+  
+right.tail.15 | left.tail.15 # TRUE where they're in the right tail OR left tail
+  
+(sum(right.tail.15 | left.tail.15, na.rm=TRUE))/sum(!is.na(bootstrap.rep.15)) #p value 
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
