@@ -153,6 +153,7 @@ bootstrap.pval<-function(days,shootings,FUN){
   
   return(pval)
   
+
 }
 
 bootstrap.pval(FUN=bootstrap.coef.var(365,18))
