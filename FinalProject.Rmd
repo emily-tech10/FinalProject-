@@ -140,24 +140,22 @@ abline(v=coef.variation-1)
 abline(v=-coef.variation+1)
 ```
 
-
-make a function with how we calculated this p value 
-```{r}
-right.tail <- bootstrap.rep-1 >= coef.variation-1 # true=values to the right of the hist 
-```
-
-```{r}
-left.tail <- bootstrap.rep-1 <= -coef.variation+1 # true=values to the left of the hist 
-```
-
+### Function for the p-value 
 ```{r}
 
-rbinom(365, 1, (10/365))
-right.tail | left.tail # TRUE where they're in the right tail OR left tail 
-```
+bootstrap.pval<-function(days,shootings,FUN){
+  
+  right.tail <- bootstrap.rep-1 >= coef.variation-1 # true=values to the right of the hist 
+  left.tail <- bootstrap.rep-1 <= -coef.variation+1 # true=values to the left of the hist 
+  right.tail | left.tail # TRUE where they're in the right tail OR left tail
+  
+  pval<-(sum(right.tail | left.tail, na.rm=TRUE))/sum(!is.na(bootstrap.rep)) #p value 
+  
+  return(pval)
+  
+}
 
-```{r}
-(sum(right.tail | left.tail, na.rm=TRUE))/sum(!is.na(bootstrap.rep)) #p value 
+bootstrap.pval(FUN=bootstrap.coef.var(365,18))
 ```
 
 If you were using a 5% significance level, you would fail to reject the null  
