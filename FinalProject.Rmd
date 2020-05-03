@@ -109,8 +109,8 @@ coef.variation
 
 ### Calculating Bootstrapped Coefficients of Variation For The Year 2019 Through Simulation  
 ```{r}
-
 rbinom(365, 1, (10/365))
+
 ```
 
 
