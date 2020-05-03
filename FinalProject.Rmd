@@ -109,11 +109,13 @@ coef.variation.19-1
 
 ```{r}
 bootstrap.coef.var <- function(days, shootings){
+  
   boot.coef <- rbinom(days, 1, shootings/days)
 
   if((length(which(boot.coef == 1)) == 0) || (length(which(boot.coef == 1)) == 1) || (length(which(boot.coef == 1)) == 2)){
     return(NA)
   } else {
+    
   tau.boot <- diff(which(boot.coef == 1))-1
 
   tau.boot.sd <- sd(tau.boot)
@@ -170,6 +172,9 @@ coef.variation.15-1
 ```
 
 ### 2015 Bootstrap Function 
+=======
+### Centered at 0 
+>>>>>>> cfc05e1f15838fa29bffaebbad53de352a2eff23
 
 ```{r}
 bootstrap.rep.15 <- replicate(10000, bootstrap.coef.var(365, 7))
@@ -196,23 +201,49 @@ right.tail.15 | left.tail.15 # TRUE where they're in the right tail OR left tail
 
 
 
+```{r}
+tau.2015 <- as.numeric(-diff(shootings.dataset$date[41:47])) #Calculating the time between two successive mass shootings in the year 2015
 
+tau.sd<- sd(tau.2015) 
+tau.mean <- mean(tau.2015)
 
+coef.variation.2015 <- tau.sd/tau.mean # Calculating the coefficient of variation for 2015
 
+```
 
+### Question 7
 
+#### Total Victims Graphs 
 
+```{r}
+a <- shootings.dataset[86:118, 3] 
 
+d <- shootings.dataset[86:118, 7]
 
+x <- shootings.dataset[1:85, 3]
 
+w <- shootings.dataset[1:85, 7]
 
+par(mfrow=c(2,2))
 
+plot(a, d, main = "Mass Shootings Before 9/11/2001",xlab = "Year", ylab = "Total Victims")
+plot(x, w, main = "Mass Shootings After 9/11/2001", xlab = "Year", ylab = "Total Victims")
+```
 
+#### Injured Graphs 
 
+```{r}
+a<- shootings.dataset[86:118, 3] 
 
+c<- shootings.dataset[86:118, 6]
 
+x <- shootings.dataset[1:85, 3]
 
+y<- shootings.dataset[1:85, 6]
 
+par(mfrow=c(2,2))
 
+plot(a, c, main = "Mass Shootings Before 9/11/2001",xlab = "Year", ylab = "Injured")
+plot(x, y, main = "Mass Shootings After 9/11/2001", xlab = "Year", ylab = "Injured")
 
-
+```
