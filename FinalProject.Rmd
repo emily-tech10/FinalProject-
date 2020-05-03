@@ -156,7 +156,7 @@ bootstrap.pval<-function(days,shootings,coef.variation){
   return(pval)
 }
 
-bootstrap.pval(365,10,coef.variation)
+bootstrap.pval(365,10,coef.variation=coef.variation)
 ```
 
 
