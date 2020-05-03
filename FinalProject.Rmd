@@ -4,10 +4,9 @@ authors: Emily Tumbaco, Lorena Mancino, Rob Golebieski
 output: html_notebook
 ---
 
-## Problem 1 
+# Problem 1 
 
-### Importing the Dataset & Installing Necessary Packages
-
+## Importing the Dataset & Installing Necessary Packages
 ```{r}
 shootings.dataset<-read.csv("data.csv") #importing the dataset 
 shootings.dataset
@@ -22,40 +21,28 @@ shootings.dataset <- mutate(shootings.dataset, date= as.Date(date, format = "%m/
 shootings.dataset$date # converting the dates in the data set to actual dates in R
 ```
 
-### Graph 1:  Mass Shootings Before 9/11/2001 
+
+## Graph 1: Comparison of Mass Shootings Fatalities Before 9/11/2001 and After 9/11/2001
 
 ```{r}
 a <- shootings.dataset[86:118, 3]
 
 b <- shootings.dataset[86:118, 5]
 
-plot(a, b, main = "Mass Shootings Before 9/11/2001",xlab = "Year", ylab = "Fatalities")
-```
-
-This is a graph of all of the mass shootings that occured before 9/11/2001. The x axis contains the dates, and the y axis contains the number of fatalities from each shooting. 
-
-### Graph 2 : Mass Shootings After 9/11/2001 
-
-```{r}
 x <- shootings.dataset[1:85, 3]
 
 y <- shootings.dataset[1:85, 5]
 
-plot(x, y,main = "Mass Shootings After 9/11/2001", xlab = "Year", ylab = "Fatalities")
-```
-This is a graph of all of the mass shootings that occured after 9/11/2001. The x axis contains the dates, and the y axis contains the number of fatalities from each shooting. 
 
-### Graph 3 : Side By Side Comparison of Mass Shootings Before 9/11/2001 and After 9/11/2001
-
-```{r}
 par(mfrow=c(2,2))
-plot(a, b, main = "Mass Shootings Before 9/11/2001",xlab = "Year", ylab = "Fatalities")
-plot(x, y,main = "Mass Shootings After 9/11/2001", xlab = "Year", ylab = "Fatalities")
+plot(a, b, main = "Mass Shootings Fatalities Before 9/11/2001",xlab = "Year", ylab = "Fatalities")
+plot(x, y,main = "Mass Shootings Fatalities After 9/11/2001", xlab = "Year", ylab = "Fatalities")
 ```
 
-## Problem 4 
 
-### Raster Plot - 2019 
+# Problem 4 
+
+## 2019 Raster Plot
 
 ```{r}
 from.date <- as.Date('2019-01-01', format = "%Y-%m-%d")
@@ -66,18 +53,8 @@ plot(NA, xlim=c(from.date, to.date), ylim=c(0,10), xlab="Day of Year", ylab="y")
 segments(shootings.dataset$date, 0, y1=10)
 ```
 
-### Raster Plot - 1999 
 
-```{r}
-from.date.1 <- as.Date('1999-01-01', format = "%Y-%m-%d")
-to.date.1 <- as.Date('1999-12-31', format = "%Y-%m-%d")
-
-plot(NA, xlim=c(from.date.1, to.date.1), ylim=c(0,10), xlab="Day of Year", ylab="y")
-
-segments(shootings.dataset$date, 0, y1=10)
-```
-
-### Raster Plot - 2018
+## 2018 Raster Plot
 
 ```{r}
 from.date.2 <- as.Date('2018-01-01', format = "%Y-%m-%d")
@@ -88,26 +65,49 @@ plot(NA, xlim=c(from.date.2, to.date.2), ylim=c(0,10), xlab="Day of Year", ylab=
 segments(shootings.dataset$date, 0, y1=10)
 ```
 
+
+## 1999 Raster Plot
+
+```{r}
+from.date.1 <- as.Date('1999-01-01', format = "%Y-%m-%d")
+to.date.1 <- as.Date('1999-12-31', format = "%Y-%m-%d")
+
+plot(NA, xlim=c(from.date.1, to.date.1), ylim=c(0,10), xlab="Day of Year", ylab="y")
+
+segments(shootings.dataset$date, 0, y1=10)
+```
 From looking at the raster plots, the mass shootings seem to occur in clusters. Every 3 months, there are approximately 3 shootings clustered together. The highest frequency of shootings occurs in the Fall months, and the lowest frequency occurs in the Summer. 
 
-# 2019 Bootstrap 
 
-### Calculating One Coefficient of Variation For The Year 2019
+# Problem 6
+
+2019 Results 
+
+## Calculating One Coefficient of Variation For The Year 2019
 
 ```{r}
-tau.19 <- as.numeric(-diff(shootings.dataset$date[2:11])) #Calculating the time between two successive mass shootings in the year 2019
+tau.2019 <- as.numeric(-diff(shootings.dataset$date[2:11])) #Calculating the time between two successive mass shootings in the year 2019
 
-tau.sd.19 <- sd(tau.19) 
-tau.mean.19 <- mean(tau.19)
+tau.sd<- sd(tau.2019) 
+tau.mean <- mean(tau.2019)
 
-coef.variation.19 <- tau.sd.19/tau.mean.19 # Calculating the coefficient of variation for 2019
+coef.variation <- tau.sd/tau.mean # Calculating the coefficient of variation for 2019
 
-coef.variation.19-1
+coef.variation-1
 ```
 
-### 2019 Bootstrap Function 
+
+## Bootstrap Function with 2019 Results 
 
 ```{r}
+#' Simulates the bootstrap coefficient variation from a case where the shootings are happening at random for a given year
+#'
+#' @param days number of days in a year 
+#' @param shootings number of shooting that given year 
+#'
+#' @return coefficient variation for that year 
+
+
 bootstrap.coef.var <- function(days, shootings){
   
   boot.coef <- rbinom(days, 1, shootings/days)
@@ -126,80 +126,52 @@ bootstrap.coef.var <- function(days, shootings){
   }
 }
 
-bootstrap.rep.19 <- replicate(10000, bootstrap.coef.var(365, 10))
-
-hist(bootstrap.rep.19-1, breaks="FD")
-abline(v=coef.variation.19-1)
-abline(v=-coef.variation.19+1)
+bootstrap.rep <- replicate(10000, bootstrap.coef.var(365, 10)) # 2019 results 
 ```
 
 
-### Function for the p-value 2019 
-```{r}
-
-right.tail.19 <- bootstrap.rep.19-1 >= coef.variation.19-1 # true=values to the right of the hist
-
-left.tail.19 <- bootstrap.rep.19-1 <= -coef.variation.19+1 # true=values to the left of the hist
-  
-right.tail.19 | left.tail.19 # TRUE where they're in the right tail OR left tail
-  
-(sum(right.tail.19 | left.tail.19, na.rm=TRUE))/sum(!is.na(bootstrap.rep.19)) #p value 
-```
-
-If you were using a 5% significance level, you would fail to reject the null  
-
-
-p-value is the prop that are as extreme or more extreme 
-
-
-
-
-
-
-
-
-### Calculating One Coefficient of Variation For The Year 2015
+## 2019 Bootstrap Histogram (Centered at 0) 
 
 ```{r}
-tau.2015 <- as.numeric(-diff(shootings.dataset$date[41:47])) #Calculating the time between two successive mass shootings in the year 2015
-
-tau.sd.15 <- sd(tau.2015) 
-tau.mean.15 <- mean(tau.2015)
-
-coef.variation.15 <- tau.sd.15/tau.mean.15 # Calculating the coefficient of variation for 2015
-
-coef.variation.15-1
+hist(bootstrap.rep-1, breaks="FD")
+abline(v=coef.variation-1)
+abline(v=-coef.variation+1)
 ```
 
-### 2015 Bootstrap Function 
-=======
-### Centered at 0 
->>>>>>> cfc05e1f15838fa29bffaebbad53de352a2eff23
+
+## Function for the P-value with 2019 Results 
 
 ```{r}
-bootstrap.rep.15 <- replicate(10000, bootstrap.coef.var(365, 7))
+#' computes the P-value for a given year
+#'
+#' @param days number of days in a year 
+#' @param shootings number of shooting that given year 
+#' @param coef.variation the coefficient variation for that given year 
+#'
+#' @return the p-value 
 
-hist(bootstrap.rep.15-1, breaks="FD")
-abline(v=coef.variation.15-1)
-abline(v=-coef.variation.15+1)
+
+bootstrap.pval<-function(days,shootings,coef.variation){
+  
+  bootstrap.rep<-replicate(10000, bootstrap.coef.var(days,shootings))
+  
+  right.tail <- bootstrap.rep-1 >= abs(coef.variation-1) # true=values to the right of the hist 
+  left.tail <- bootstrap.rep-1 <= -abs(coef.variation-1) # true=values to the left of the hist 
+  right.tail | left.tail # TRUE where they're in the right tail OR left tail
+  
+  pval<-(sum(right.tail | left.tail, na.rm=TRUE))/sum(!is.na(bootstrap.rep)) #p value 
+
+  return(pval)
+}
+
+bootstrap.pval(365,10,coef.variation=coef.variation) # 2019 results 
 ```
 
 
-
-### P-value for 2015 
-```{r}
-right.tail.15 <- bootstrap.rep.15-1 >= coef.variation.15-1 # true=values to the right of the hist
-
-left.tail.15 <- bootstrap.rep.15-1 <= -coef.variation.15+1 # true=values to the left of the hist
-  
-right.tail.15 | left.tail.15 # TRUE where they're in the right tail OR left tail
-  
-(sum(right.tail.15 | left.tail.15, na.rm=TRUE))/sum(!is.na(bootstrap.rep.15)) #p value 
-```
+2015 Results 
 
 
-
-
+## Calculating One Coefficient of Variation For The Year 2015
 
 ```{r}
 tau.2015 <- as.numeric(-diff(shootings.dataset$date[41:47])) #Calculating the time between two successive mass shootings in the year 2015
@@ -211,9 +183,33 @@ coef.variation.2015 <- tau.sd/tau.mean # Calculating the coefficient of variatio
 
 ```
 
-### Question 7
 
-#### Total Victims Graphs 
+## Bootstrap Function with 2015 Results 
+
+```{r}
+bootstrap.rep.15 <- replicate(10000, bootstrap.coef.var(365, 7)) # 2015 results 
+```
+
+
+## 2015 Bootstrap Histogram (Centered at 0) 
+
+```{r}
+hist(bootstrap.rep.15-1, breaks="FD")
+abline(v=coef.variation.2015-1)
+abline(v=-coef.variation.2015+1)
+```
+
+
+## P-value with 2015  
+
+```{r}
+bootstrap.pval(365,7,coef.variation=coef.variation.2015)
+```
+
+
+# Question 7
+
+## Total Victims Graphs 
 
 ```{r}
 a <- shootings.dataset[86:118, 3] 
@@ -226,11 +222,12 @@ w <- shootings.dataset[1:85, 7]
 
 par(mfrow=c(2,2))
 
-plot(a, d, main = "Mass Shootings Before 9/11/2001",xlab = "Year", ylab = "Total Victims")
-plot(x, w, main = "Mass Shootings After 9/11/2001", xlab = "Year", ylab = "Total Victims")
+plot(a, d, main = "Mass Shootings Total Victims Before 9/11/2001",xlab = "Year", ylab = "Total Victims")
+plot(x, w, main = "Mass Shootings Total Victims  After 9/11/2001", xlab = "Year", ylab = "Total Victims")
 ```
 
-#### Injured Graphs 
+
+## Injured Graphs 
 
 ```{r}
 a<- shootings.dataset[86:118, 3] 
