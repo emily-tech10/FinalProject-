@@ -104,14 +104,73 @@ tau.mean <- mean(tau.2019)
 
 coef.variation <- tau.sd/tau.mean # Calculating the coefficient of variation for 2019
 
-coef.variation
+coef.variation-1
 ```
 
-### Calculating Bootstrapped Coefficients of Variation For The Year 2019 Through Simulation  
+### Bootstrap Function 
+
 ```{r}
-rbinom(365, 1, (10/365))
+bootstrap.coef.var <- function(days, shootings){
+  boot.coef <- rbinom(days, 1, shootings/days)
 
+  if((length(which(boot.coef == 1)) == 0) || (length(which(boot.coef == 1)) == 1) || (length(which(boot.coef == 1)) == 2)){
+    return(NA)
+  } else {
+  tau.boot <- diff(which(boot.coef == 1))-1
+
+  tau.boot.sd <- sd(tau.boot)
+  tau.boot.mean <- mean(tau.boot)
+  tau.boot.variation <- (tau.boot.sd/tau.boot.mean)
+  
+  return(tau.boot.variation)
+  }
+}
+
+bootstrap.rep <- replicate(10000, bootstrap.coef.var(365, 10))
+
+hist(bootstrap.rep, breaks="FD")
+abline(v=coef.variation)
+abline(v=2-coef.variation)
 ```
+
+
+### Centered at 0 
+
+```{r}
+hist(bootstrap.rep-1, breaks="FD")
+abline(v=coef.variation-1)
+abline(v=-coef.variation+1)
+```
+
+```{r}
+right.tail <- bootstrap.rep-1 >= coef.variation-1 # true=values to the right of the hist 
+```
+
+```{r}
+left.tail <- bootstrap.rep-1 <= -coef.variation+1 # true=values to the left of the hist 
+```
+
+```{r}
+
+rbinom(365, 1, (10/365))
+right.tail | left.tail # TRUE where they're in the right tail OR left tail 
+```
+
+```{r}
+(sum(right.tail | left.tail, na.rm=TRUE))/sum(!is.na(bootstrap.rep)) #p value 
+```
+
+If you were using a 5% significance level, you would fail to reject the null  
+
+
+
+
+
+
+
+
+
+
 
 
 
