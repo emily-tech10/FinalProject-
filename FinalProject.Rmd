@@ -48,7 +48,7 @@ plot(x, y,main = "Mass Shootings Fatalities After 9/11/2001", xlab = "Year", yla
 from.date <- as.Date('2019-01-01', format = "%Y-%m-%d")
 to.date <- as.Date('2019-12-31', format = "%Y-%m-%d")
 
-plot(NA, xlim=c(from.date, to.date), ylim=c(0,10), xlab="Day of Year", ylab="y")
+plot(NA, xlim=c(from.date, to.date), main="2019 Raster Plot", ylim=c(0,10), xlab="Day of Year", ylab="y")
 
 segments(shootings.dataset$date, 0, y1=10)
 ```
@@ -60,7 +60,7 @@ segments(shootings.dataset$date, 0, y1=10)
 from.date.2 <- as.Date('2018-01-01', format = "%Y-%m-%d")
 to.date.2 <- as.Date('2018-12-31', format = "%Y-%m-%d")
 
-plot(NA, xlim=c(from.date.2, to.date.2), ylim=c(0,10), xlab="Day of Year", ylab="y")
+plot(NA, xlim=c(from.date.2, to.date.2), ylim=c(0,10), main="2018 Raster Plot",xlab="Day of Year", ylab="y")
 
 segments(shootings.dataset$date, 0, y1=10)
 ```
@@ -72,7 +72,7 @@ segments(shootings.dataset$date, 0, y1=10)
 from.date.1 <- as.Date('1999-01-01', format = "%Y-%m-%d")
 to.date.1 <- as.Date('1999-12-31', format = "%Y-%m-%d")
 
-plot(NA, xlim=c(from.date.1, to.date.1), ylim=c(0,10), xlab="Day of Year", ylab="y")
+plot(NA, xlim=c(from.date.1, to.date.1), ylim=c(0,10), main="1999 Raster Plot",xlab="Day of Year", ylab="y")
 
 segments(shootings.dataset$date, 0, y1=10)
 ```
