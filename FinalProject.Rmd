@@ -8,10 +8,12 @@ output: html_notebook
 
 ## Problem 1 
 
+### Importing the Dataset & Installing Necessary Packages
+
 ```{r}
 shootings.dataset<-read.csv("data.csv") #importing the dataset 
+shootings.dataset
 ```
-
 
 ```{r}
 # install.packages('dplyr') # this package contains the mutate function which we used below 
@@ -22,8 +24,7 @@ shootings.dataset <- mutate(shootings.dataset, date= as.Date(date, format = "%m/
 shootings.dataset$date # converting the dates in the data set to actual dates in R
 ```
 
-
-### Mass Shootings Before 9/11/2001 
+### Graph 1:  Mass Shootings Before 9/11/2001 
 
 ```{r}
 a <- shootings.dataset[86:118, 3]
@@ -32,11 +33,10 @@ b <- shootings.dataset[86:118, 5]
 
 plot(a, b, main = "Mass Shootings Before 9/11/2001",xlab = "Year", ylab = "Fatalities")
 ```
+
 This is a graph of all of the mass shootings that occured before 9/11/2001. The x axis contains the dates, and the y axis contains the number of fatalities from each shooting. 
 
-
-
-### Mass Shootings After 9/11/2001 
+### Graph 2 : Mass Shootings After 9/11/2001 
 
 ```{r}
 x <- shootings.dataset[1:85, 3]
@@ -47,15 +47,13 @@ plot(x, y,main = "Mass Shootings After 9/11/2001", xlab = "Year", ylab = "Fatali
 ```
 This is a graph of all of the mass shootings that occured after 9/11/2001. The x axis contains the dates, and the y axis contains the number of fatalities from each shooting. 
 
+### Graph 3 : Side By Side Comparison of Mass Shootings Before 9/11/2001 and After 9/11/2001
 
-<<<<<<< HEAD
-=======
 ```{r}
 par(mfrow=c(2,2))
 plot(a, b, main = "Mass Shootings Before 9/11/2001",xlab = "Year", ylab = "Fatalities")
 plot(x, y,main = "Mass Shootings After 9/11/2001", xlab = "Year", ylab = "Fatalities")
 ```
-
 
 ## Problem 4 
 
@@ -69,8 +67,6 @@ plot(NA, xlim=c(from.date, to.date), ylim=c(0,10), xlab="Day of Year", ylab="y")
 
 segments(shootings.dataset$date, 0, y1=10)
 ```
->>>>>>> e5943566c0c074e2495950e81c2312d2dbd6576f
-
 
 ### Raster Plot - 1999 
 
@@ -82,7 +78,6 @@ plot(NA, xlim=c(from.date.1, to.date.1), ylim=c(0,10), xlab="Day of Year", ylab=
 
 segments(shootings.dataset$date, 0, y1=10)
 ```
-
 
 ### Raster Plot - 2018
 
@@ -97,23 +92,25 @@ segments(shootings.dataset$date, 0, y1=10)
 
 From looking at the raster plots, the mass shootings seem to occur in clusters. Every 3 months, there are approximately 3 shootings clustered together. The highest frequency of shootings occurs in the Fall months, and the lowest frequency occurs in the Summer. 
 
+## Problem 6
 
-## Problem 5
+### Calculating One Coefficient of Variation For The Year 2019
 
 ```{r}
-tau.2019 <- as.numeric(-diff(shootings.dataset$date[2:11]))
+tau.2019 <- as.numeric(-diff(shootings.dataset$date[2:11])) #Calculating the time between two successive mass shootings in the year 2019
 
-tau.sd<- sd(tau.2019)
+tau.sd<- sd(tau.2019) 
 tau.mean <- mean(tau.2019)
 
-coef.variation <- tau.sd/tau.mean
+coef.variation <- tau.sd/tau.mean # Calculating the coefficient of variation for 2019
+
 coef.variation
 ```
 
-
+### Calculating Bootstrapped Coefficients of Variation For The Year 2019 Through Simulation  
 ```{r}
-rbinom(365, 1, (10/365))
 
+rbinom(365, 1, (10/365))
 ```
 
 
