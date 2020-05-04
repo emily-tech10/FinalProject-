@@ -1,7 +1,9 @@
 ---
 title: "Are Mass Shooting Really That Random?"
+output:
+  html_document:
+    df_print: paged
 authors: Emily Tumbaco, Lorena Mancino, Rob Golebieski
-output: html_notebook
 ---
 
 # Problem 1 
@@ -180,6 +182,8 @@ tau.sd<- sd(tau.2015)
 tau.mean <- mean(tau.2015)
 
 coef.variation.2015 <- tau.sd/tau.mean # Calculating the coefficient of variation for 2015
+coef.variation.2015
+coef.variation.2015-1
 
 ```
 
@@ -228,7 +232,7 @@ plot(x, w, main = "Mass Shootings Total Victims  After 9/11/01", xlab = "Year", 
 ```
 
 
-## Injured Graphs Compared To Fatalities Graphs 
+## Injured Graphs 
 
 ```{r}
 a<- shootings.dataset[86:118, 3] 
@@ -241,31 +245,31 @@ m<- shootings.dataset[1:85, 6]
 
 par(mfrow=c(2,2))
 
+# Injured graphs 
+plot(a, c, main = "Mass Shootings Injured Before 9/11/2001",xlab = "Year", ylab = "Injured", ylim = c(0, 60), col="purple")
+plot(x, m, main = "Mass Shootings Injured After 9/11/2001", xlab = "Year", ylab = "Injured",ylim = c(0, 60), col="orange")
+```
+
+
+## Injured Graphs; Fatalities Graphs; and Total Victims Graphs 
+
+```{r}
+par(mfrow=c(3,2))
+
+# Injured graphs 
 plot(a, c, main = "Mass Shootings Injured Before 9/11/2001",xlab = "Year", ylab = "Injured", ylim = c(0, 60), col="purple")
 plot(x, m, main = "Mass Shootings Injured After 9/11/2001", xlab = "Year", ylab = "Injured",ylim = c(0, 60), col="orange")
 
+
+# Fatalities graphs 
 plot(a, b, main = "Mass Shootings Fatalities Before 9/11/2001",xlab = "Year", ylab = "Fatalities")
 plot(x, y,main = "Mass Shootings Fatalities After 9/11/2001", xlab = "Year", ylab = "Fatalities")
 
+# Total victims graphs 
+plot(a, d, main = "Mass Shootings Total Victims Before 9/11/01",xlab = "Year", ylab = "Total Victims", col="red")
+plot(x, w, main = "Mass Shootings Total Victims  After 9/11/01", xlab = "Year", ylab = "Total Victims", ylim = c(0, 60), col="blue")
+
 ```
-
-
-## All Four Graphs Combined
-
-```{r}
-par(mfrow=c(2,2))
-
-plot(a, d, main = "Total Victims Before 9/11/2001",xlab = "Year", ylab = "Total Victims", col="red")
-plot(x, w, main = "Total Victims  After 9/11/2001", xlab = "Year", ylab = "Total Victims", ylim = c(0, 60), col="blue")
-plot(a, c, main = "Injured Before 9/11/2001",xlab = "Year", ylab = "Injured", ylim = c(0, 60), col="purple") 
-plot(x, y, main = "Injured After 9/11/2001", xlab = "Year", ylab = "Injured",ylim = c(0, 60), col="orange")
-```
-
-
-
-
-
-
 
 
 
