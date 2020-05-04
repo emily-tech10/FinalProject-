@@ -133,9 +133,9 @@ bootstrap.rep <- replicate(10000, bootstrap.coef.var(365, 10)) # 2019 results
 ## 2019 Bootstrap Histogram (Centered at 0) 
 
 ```{r}
-hist(bootstrap.rep-1, breaks="FD")
-abline(v=coef.variation-1)
-abline(v=-coef.variation+1)
+hist(bootstrap.rep-1, breaks="FD", main ="2019 Bootstrap Histogram")
+abline(v=coef.variation-1, col="blue")
+abline(v=-coef.variation+1, col="red")
 ```
 
 
@@ -194,9 +194,9 @@ bootstrap.rep.15 <- replicate(10000, bootstrap.coef.var(365, 7)) # 2015 results
 ## 2015 Bootstrap Histogram (Centered at 0) 
 
 ```{r}
-hist(bootstrap.rep.15-1, breaks="FD")
-abline(v=coef.variation.2015-1)
-abline(v=-coef.variation.2015+1)
+hist(bootstrap.rep.15-1, breaks="FD", main ="2015 Bootstrap Histogram")
+abline(v=coef.variation.2015-1, col="purple")
+abline(v=-coef.variation.2015+1, col="orange")
 ```
 
 
@@ -222,8 +222,8 @@ w <- shootings.dataset[1:85, 7]
 
 par(mfrow=c(2,2))
 
-plot(a, d, main = "Mass Shootings Total Victims Before 9/11/2001",xlab = "Year", ylab = "Total Victims")
-plot(x, w, main = "Mass Shootings Total Victims  After 9/11/2001", xlab = "Year", ylab = "Total Victims", ylim = c(0, 60) )
+plot(a, d, main = "Mass Shootings Total Victims Before 9/11/2001",xlab = "Year", ylab = "Total Victims", col="red")
+plot(x, w, main = "Mass Shootings Total Victims  After 9/11/2001", xlab = "Year", ylab = "Total Victims", ylim = c(0, 60), col="blue")
 ```
 
 
@@ -240,7 +240,26 @@ y<- shootings.dataset[1:85, 6]
 
 par(mfrow=c(2,2))
 
-plot(a, c, main = "Mass Shootings Before 9/11/2001",xlab = "Year", ylab = "Injured", ylim = c(0, 60))
-plot(x, y, main = "Mass Shootings After 9/11/2001", xlab = "Year", ylab = "Injured",ylim = c(0, 60))
+plot(a, c, main = "Mass Shootings Injured Before 9/11/2001",xlab = "Year", ylab = "Injured", ylim = c(0, 60), col="purple")
+plot(x, y, main = "Mass Shootings Injured After 9/11/2001", xlab = "Year", ylab = "Injured",ylim = c(0, 60), col="orange")
 
 ```
+
+
+## All Four Graphs Combined
+
+```{r}
+par(mfrow=c(2,2))
+
+plot(a, d, main = "Total Victims Before 9/11/2001",xlab = "Year", ylab = "Total Victims", col="red")
+plot(x, w, main = "Total Victims  After 9/11/2001", xlab = "Year", ylab = "Total Victims", ylim = c(0, 60), col="blue")
+plot(a, c, main = "Injured Before 9/11/2001",xlab = "Year", ylab = "Injured", ylim = c(0, 60), col="purple") 
+plot(x, y, main = "Injured After 9/11/2001", xlab = "Year", ylab = "Injured",ylim = c(0, 60), col="orange")
+```
+
+
+
+
+
+
+
