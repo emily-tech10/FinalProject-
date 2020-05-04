@@ -222,12 +222,13 @@ w <- shootings.dataset[1:85, 7]
 
 par(mfrow=c(2,2))
 
-plot(a, d, main = "Mass Shootings Total Victims Before 9/11/2001",xlab = "Year", ylab = "Total Victims", col="red")
-plot(x, w, main = "Mass Shootings Total Victims  After 9/11/2001", xlab = "Year", ylab = "Total Victims", ylim = c(0, 60), col="blue")
+
+plot(a, d, main = "Mass Shootings Total Victims Before 9/11/01",xlab = "Year", ylab = "Total Victims", col="red")
+plot(x, w, main = "Mass Shootings Total Victims  After 9/11/01", xlab = "Year", ylab = "Total Victims", ylim = c(0, 60), col="blue")
 ```
 
 
-## Injured Graphs 
+## Injured Graphs Compared To Fatalities Graphs 
 
 ```{r}
 a<- shootings.dataset[86:118, 3] 
@@ -236,12 +237,15 @@ c<- shootings.dataset[86:118, 6]
 
 x <- shootings.dataset[1:85, 3]
 
-y<- shootings.dataset[1:85, 6]
+m<- shootings.dataset[1:85, 6]
 
 par(mfrow=c(2,2))
 
 plot(a, c, main = "Mass Shootings Injured Before 9/11/2001",xlab = "Year", ylab = "Injured", ylim = c(0, 60), col="purple")
-plot(x, y, main = "Mass Shootings Injured After 9/11/2001", xlab = "Year", ylab = "Injured",ylim = c(0, 60), col="orange")
+plot(x, m, main = "Mass Shootings Injured After 9/11/2001", xlab = "Year", ylab = "Injured",ylim = c(0, 60), col="orange")
+
+plot(a, b, main = "Mass Shootings Fatalities Before 9/11/2001",xlab = "Year", ylab = "Fatalities")
+plot(x, y,main = "Mass Shootings Fatalities After 9/11/2001", xlab = "Year", ylab = "Fatalities")
 
 ```
 
@@ -256,6 +260,14 @@ plot(x, w, main = "Total Victims  After 9/11/2001", xlab = "Year", ylab = "Total
 plot(a, c, main = "Injured Before 9/11/2001",xlab = "Year", ylab = "Injured", ylim = c(0, 60), col="purple") 
 plot(x, y, main = "Injured After 9/11/2001", xlab = "Year", ylab = "Injured",ylim = c(0, 60), col="orange")
 ```
+
+
+
+
+
+
+
+
 
 
 
