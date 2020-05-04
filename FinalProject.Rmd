@@ -223,7 +223,7 @@ w <- shootings.dataset[1:85, 7]
 par(mfrow=c(2,2))
 
 plot(a, d, main = "Mass Shootings Total Victims Before 9/11/2001",xlab = "Year", ylab = "Total Victims")
-plot(x, w, main = "Mass Shootings Total Victims  After 9/11/2001", xlab = "Year", ylab = "Total Victims")
+plot(x, w, main = "Mass Shootings Total Victims  After 9/11/2001", xlab = "Year", ylab = "Total Victims", ylim = c(0, 60) )
 ```
 
 
@@ -240,7 +240,7 @@ y<- shootings.dataset[1:85, 6]
 
 par(mfrow=c(2,2))
 
-plot(a, c, main = "Mass Shootings Before 9/11/2001",xlab = "Year", ylab = "Injured")
-plot(x, y, main = "Mass Shootings After 9/11/2001", xlab = "Year", ylab = "Injured")
+plot(a, c, main = "Mass Shootings Before 9/11/2001",xlab = "Year", ylab = "Injured", ylim = c(0, 60))
+plot(x, y, main = "Mass Shootings After 9/11/2001", xlab = "Year", ylab = "Injured",ylim = c(0, 60))
 
 ```
